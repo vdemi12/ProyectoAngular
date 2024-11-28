@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Series</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Series</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list>
+    <ion-item *ngFor="let serie of series$ | async; let i = index" (click)="openSerieDetail(serie, i)">
+      <ion-label class="ion-text-nowrap">
+        {{serie.name}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <div #animatedAvatarContainer class="animated-avatar-container" [ngStyle]="{'display':isAnimating?'block':'none'}">
+    <img #animatedAvatar [src]="selectedSerie?.picture?.large" alt="Foto de {{ selectedSerie?.name.first }}">
+  </div>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
