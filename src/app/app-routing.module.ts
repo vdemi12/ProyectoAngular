@@ -31,14 +31,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule)
   },
   {
-    path: 'groups',
+    path: 'series',
     canActivate: [authGuard],
-    loadChildren: () => import('./pages/series/series.module').then( m => m.GroupsPageModule)
+    loadChildren: () => import('./pages/series/series.module').then( m => m.SeriesPageModule)
   },
   {
-    path: 'people',
+    path: 'seasons',
     canActivate: [authGuard],
-    loadChildren: () => import('./pages/seasons/seasons.module').then( m => m.PeoplePageModule)
+    loadChildren: () => import('./pages/seasons/seasons.module').then( m => m.SeasonsPageModule)
   },
   {
     path: 'profile',

@@ -4,7 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { BaseRepositoryHttpService } from './impl/base-repository-http.service';
 import { IBaseRepository } from './intefaces/base-repository.interface';
 import { Season } from '../models/season.model';
-import { AUTH_MAPPING_TOKEN, AUTH_ME_API_URL_TOKEN, AUTH_SIGN_IN_API_URL_TOKEN, AUTH_SIGN_UP_API_URL_TOKEN, BACKEND_TOKEN, SERIES_API_URL_TOKEN, SERIES_REPOSITORY_MAPPING_TOKEN, SERIES_REPOSITORY_TOKEN, SERIES_RESOURCE_NAME_TOKEN, SEASONS_API_URL_TOKEN, SEASONS_REPOSITORY_MAPPING_TOKEN, SEASONS_REPOSITORY_TOKEN, SEASONS_RESOURCE_NAME_TOKEN, UPLOAD_API_URL_TOKEN } from './repository.tokens';
+import { Person } from '../models/person.model';
+import { AUTH_MAPPING_TOKEN, AUTH_ME_API_URL_TOKEN, AUTH_SIGN_IN_API_URL_TOKEN, AUTH_SIGN_UP_API_URL_TOKEN, BACKEND_TOKEN, SERIES_API_URL_TOKEN, SERIES_REPOSITORY_MAPPING_TOKEN, SERIES_REPOSITORY_TOKEN, SERIES_RESOURCE_NAME_TOKEN, SEASONS_API_URL_TOKEN, SEASONS_REPOSITORY_MAPPING_TOKEN, SEASONS_REPOSITORY_TOKEN, SEASONS_RESOURCE_NAME_TOKEN, PEOPLE_API_URL_TOKEN, PEOPLE_REPOSITORY_MAPPING_TOKEN, PEOPLE_REPOSITORY_TOKEN, PEOPLE_RESOURCE_NAME_TOKEN, UPLOAD_API_URL_TOKEN } from './repository.tokens';
 import { BaseRespositoryLocalStorageService } from './impl/base-repository-local-storage.service';
 import { Model } from '../models/base.model';
 import { IBaseMapping } from './intefaces/base-mapping.interface';
@@ -17,6 +18,9 @@ import { StrapiAuthenticationService } from '../services/impl/strapi-authenticat
 import { SeasonsLocalStorageMapping } from './impl/seasons-mapping-local-storage.service';
 import { SeasonsMappingJsonServer } from './impl/seasons-mapping-json-server.service';
 import { SeasonsMappingStrapi } from './impl/seasons-mapping-strapi.service';
+import { PeopleLocalStorageMapping } from './impl/people-mapping-local-storage.service';
+import { PeopleMappingJsonServer } from './impl/people-mapping-json-server.service';
+import { PeopleMappingStrapi } from './impl/people-mapping-strapi.service';
 import { StrapiAuthMappingService } from '../services/impl/strapi-auth-mapping.service';
 import { SeriesMappingJsonServer } from './impl/series-mapping-json-server.service';
 import { SeriesMappingStrapi } from './impl/series-mapping-strapi.service';
@@ -50,7 +54,7 @@ export function createBaseRepositoryFactory<T extends Model>(
 export function createBaseMappingFactory<T extends Model>(
   token: InjectionToken<IBaseMapping<T>>,
   dependencies: any[],
-  modelType: 'season' | 'serie'
+  modelType: 'season' | 'serie' | 'person'
 ): FactoryProvider {
   return {
     provide: token,
@@ -110,6 +114,12 @@ export const SeriesMappingFactory = createBaseMappingFactory<Serie>(
   'serie'
 );
 
+export const PeopleMappingFactory = createBaseMappingFactory<Person>(
+  PEOPLE_REPOSITORY_MAPPING_TOKEN, 
+  [BACKEND_TOKEN],
+  'person'
+);
+
 export const AuthMappingFactory: FactoryProvider = createBaseAuthMappingFactory(AUTH_MAPPING_TOKEN, [BACKEND_TOKEN]);
 
 export const AuthenticationServiceFactory:FactoryProvider = {
@@ -157,4 +167,7 @@ export const SeasonsRepositoryFactory: FactoryProvider = createBaseRepositoryFac
 );
 export const SeriesRepositoryFactory: FactoryProvider = createBaseRepositoryFactory<Serie>(SERIES_REPOSITORY_TOKEN,
   [BACKEND_TOKEN, HttpClient, BaseAuthenticationService, SERIES_API_URL_TOKEN, SERIES_RESOURCE_NAME_TOKEN, SERIES_REPOSITORY_MAPPING_TOKEN]
+);
+export const PeopleRepositoryFactory: FactoryProvider = createBaseRepositoryFactory<Person>(PEOPLE_REPOSITORY_TOKEN,
+  [BACKEND_TOKEN, HttpClient, BaseAuthenticationService, PEOPLE_API_URL_TOKEN, PEOPLE_RESOURCE_NAME_TOKEN, PEOPLE_REPOSITORY_MAPPING_TOKEN]
 );

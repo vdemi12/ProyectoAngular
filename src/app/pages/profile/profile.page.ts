@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
-import { Person } from 'src/app/core/models/season.model';
+import { Person } from 'src/app/core/models/person.model';
 import { BaseAuthenticationService } from 'src/app/core/services/impl/base-authentication.service';
 import { BaseMediaService } from 'src/app/core/services/impl/base-media.service';
-import { PeopleService } from 'src/app/core/services/impl/seasons.service';
+import { PeopleService } from 'src/app/core/services/impl/people.service';
 
 @Component({
   selector: 'app-profile',

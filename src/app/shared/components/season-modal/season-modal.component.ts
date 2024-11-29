@@ -2,37 +2,37 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Group } from 'src/app/core/models/serie.model';
-import { Person } from 'src/app/core/models/season.model';
+import { Serie } from 'src/app/core/models/serie.model';
+import { Season } from 'src/app/core/models/season.model';
 
 @Component({
-  selector: 'app-person-modal',
-  templateUrl: './person-modal.component.html',
-  styleUrls: ['./person-modal.component.scss'],
+  selector: 'app-season-modal',
+  templateUrl: './season-modal.component.html',
+  styleUrls: ['./season-modal.component.scss'],
 })
-export class PersonModalComponent  implements OnInit {
+export class SeasonModalComponent  implements OnInit {
   genders:string[] = ['Masculino', 'Femenino', 'Otros'];
   formGroup:FormGroup;
   mode:'new'|'edit' = 'new';
   isMobile: boolean = false;
 
-  private _groups:BehaviorSubject<Group[]> = new BehaviorSubject<Group[]>([]);
-  public groups$:Observable<Group[]> = this._groups.asObservable();
+  private _series:BehaviorSubject<Serie[]> = new BehaviorSubject<Serie[]>([]);
+  public series$:Observable<Serie[]> = this._series.asObservable();
 
-  @Input() set groups(groups:Group[]){
-    this._groups.next(groups);
+  @Input() set series(series:Serie[]){
+    this._series.next(series);
   }
 
-  @Input() set person(_person:Person){
-    if(_person && _person.id)
+  @Input() set season(_season:Season){
+    if(_season && _season.id)
       this.mode = 'edit';
     
-    this.formGroup.controls['name'].setValue(_person.name);
-    this.formGroup.controls['surname'].setValue(_person.surname);
-    this.formGroup.controls['age'].setValue(_person.age);
-    this.formGroup.controls['gender'].setValue(_person.gender);
-    this.formGroup.controls['email'].setValue(_person.email);
-    this.formGroup.controls['groupId'].setValue(_person.groupId);
+    this.formGroup.controls['name'].setValue(_season.name);
+    this.formGroup.controls['numSeason'].setValue(_season.numSeason);
+    this.formGroup.controls['numEpisodes'].setValue(_season.numEpisodes);
+    this.formGroup.controls['releaseDate'].setValue(_season.releaseDate);
+    this.formGroup.controls['rating'].setValue(_season.rating);
+    this.formGroup.controls['serieId'].setValue(_season.serieId);
   }
 
   constructor(
@@ -43,11 +43,11 @@ export class PersonModalComponent  implements OnInit {
     this.isMobile = this.platform.is('ios') || this.platform.is('android');
     this.formGroup = this.fb.group({
       name:['', [Validators.required, Validators.minLength(2)]],
-      surname:['', [Validators.required, Validators.minLength(2)]],
-      email:['', [Validators.required, Validators.email]],
-      gender:['', [Validators.required]],
-      age:['', [Validators.pattern(/^\d+$/)]],
-      groupId:[null, [Validators.required]]
+      numSeason:['', [Validators.required]],
+      numEpisodes:['', [Validators.required]],
+      releaseDate:['', [Validators.required]],
+      rating:['', [Validators.required]],
+      serieId:[null, [Validators.required]]
     });
   }
   
@@ -58,20 +58,20 @@ export class PersonModalComponent  implements OnInit {
     return this.formGroup.controls['name'];
   }
 
-  get surname(){
-    return this.formGroup.controls['surname'];
+  get numSeason(){
+    return this.formGroup.controls['numSeason'];
   }
 
-  get age(){
-    return this.formGroup.controls['age'];
+  get numEpisodes(){
+    return this.formGroup.controls['numEpisodes'];
   }
 
-  get email(){
-    return this.formGroup.controls['email'];
+  get releaseDate(){
+    return this.formGroup.controls['releaseDate'];
   }
 
-  get gender(){
-    return this.formGroup.controls['gender'];
+  get rating(){
+    return this.formGroup.controls['rating'];
   }
   
   getDirtyValues(formGroup: FormGroup): any {

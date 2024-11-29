@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/core/models/auth.model';
 import { BaseAuthenticationService } from 'src/app/core/services/impl/base-authentication.service';
-import { PeopleService } from 'src/app/core/services/impl/seasons.service';
+import { PeopleService } from 'src/app/core/services/impl/people.service';
 import { passwordsMatchValidator, passwordValidator } from 'src/app/core/utils/validators';
 
 @Component({

@@ -6,4 +6,5 @@ export interface Serie extends Model{
     synopsis:string,
     releaseYear:number,
     rating:number,
+    picture?:string
 }
