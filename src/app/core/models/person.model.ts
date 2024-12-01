@@ -14,6 +14,5 @@ export interface Person extends Model{
         small:string | undefined,
         thumbnail:string | undefined
     },
-    groupId?:string,
     userId?:string
 }

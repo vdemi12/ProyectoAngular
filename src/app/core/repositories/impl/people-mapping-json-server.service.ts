@@ -10,8 +10,7 @@ export interface PersonRaw {
     apellidos: string
     email: string
     genero: string
-    edad:string,
-    grupoId: string
+    edad:string
 }
 @Injectable({
     providedIn: 'root'
@@ -35,8 +34,7 @@ export interface PersonRaw {
             apellidos:data.surname,
             email:data.email??'',
             edad:data.age?.toString()??'',
-            genero: this.toGenderMapping[data.gender],
-            grupoId:data.groupId??''
+            genero: this.toGenderMapping[data.gender]
         };
     }
     setUpdate(data: Person):PersonRaw {
@@ -52,8 +50,6 @@ export interface PersonRaw {
                 case 'email': toReturn['email']=data[key];
                 break;
                 case 'gender': toReturn['genero']=data[key]=='Masculino'?'male':data[key]=='Femenino'?'female':'other';
-                break;
-                case 'groupId': toReturn['grupoId']=data[key];
                 break;
                 default:
             }
@@ -72,7 +68,6 @@ export interface PersonRaw {
             surname:data.apellidos, 
             age:(data as any)["edad"]??0,
             email:(data as any)["email"]??'',
-            groupId:(data as any)["grupoId"]??'',
             gender:this.fromGenderMapping[data.genero],
             picture:(data as any)["picture"]?{
                 url:(data as any)["picture"].url,

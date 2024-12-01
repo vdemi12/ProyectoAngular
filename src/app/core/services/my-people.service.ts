@@ -20,7 +20,6 @@ export interface PaginatedRaw<T> {
     apellidos: string
     email: string
     genero: string
-    grupoId: string
 }
 @Injectable({
     providedIn:'root'
@@ -42,10 +41,8 @@ export class MyPeopleService{
                     name:d.nombre, 
                     surname:d.apellidos, 
                     age:(d as any)["age"]??0,
-                    picture:(d as any)["picture"]?{
-                        large:(d as any)["picture"].large, 
-                        thumbnail:(d as any)["picture"].thumbnail
-                    }:undefined};
+                    gender:d.genero,
+                    };
             })};
         }))
     }

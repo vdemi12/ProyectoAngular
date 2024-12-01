@@ -29,6 +29,8 @@
         
         <ion-col size="12" size-md="8">
           <ion-list>
+            
+             <!-- Nombre -->
             <ion-item>
               <ion-input [label]="'PERSON.NAME' | translate" label-placement="stacked"  type="text" formControlName="name"></ion-input>
             </ion-item>
@@ -64,10 +66,6 @@
             <ion-text color="danger" *ngIf="gender?.invalid && (gender?.dirty || gender?.touched)">
               <p *ngIf="gender?.errors?.['required']">El género es obligatorio.</p>
             </ion-text>
-            <ion-item>
-              <ion-label position="stacked">{{ 'PERSON.GROUP' | translate }}</ion-label>
-              <app-group-selectable formControlName="groupId"></app-group-selectable>
-            </ion-item>
           </ion-list>
         </ion-col>
       </ion-row>

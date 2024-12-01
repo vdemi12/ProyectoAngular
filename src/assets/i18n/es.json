@@ -11,11 +11,11 @@
       "SAVE": "Cambios guardados correctamente"
     }
   },
-  "PEOPLE": {
-    "TITLE": "Personas",
+  "SEASONS": {
+    "TITLE": "Temporadas",
     "ADD_BUTTON": "Añadir",
-    "SEARCH_PLACEHOLDER": "Buscar personas...",
-    "NO_RESULTS": "No se encontraron personas",
+    "SEARCH_PLACEHOLDER": "Buscar temporadas...",
+    "NO_RESULTS": "No se encontraron temporadas",
     "COLUMNS": {
       "NAME": "Nombre",
       "EMAIL": "Correo electrónico",
@@ -28,46 +28,43 @@
       "VIEW": "Ver detalles"
     },
     "MESSAGES": {
-      "DELETE_CONFIRM": "¿Está seguro que desea eliminar esta persona?",
-      "DELETE_SUCCESS": "Persona eliminada correctamente",
-      "DELETE_ERROR": "Error al eliminar la persona",
-      "SAVE_SUCCESS": "Persona guardada correctamente",
-      "SAVE_ERROR": "Error al guardar la persona"
+      "DELETE_CONFIRM": "¿Está seguro que desea eliminar esta temporada?",
+      "DELETE_SUCCESS": "Temporada eliminada correctamente",
+      "DELETE_ERROR": "Error al eliminar la temporada",
+      "SAVE_SUCCESS": "Temporada guardada correctamente",
+      "SAVE_ERROR": "Error al guardar la temporada"
     }
   },
-  "PERSON": {
-    "EDIT": "Editar persona",
-    "NEW": "Nueva persona",
+  "SEASON": {
+    "EDIT": "Editar temporada",
+    "NEW": "Nueva temporada",
     "NAME": "Nombre",
-    "SURNAME": "Apellidos",
-    "EMAIL": "Email",
-    "AGE": "Edad",
-    "GENDER": "Género",
-    "GROUP": "Grupo",
+    "NUMSEASON": "Nº de la Temporada",
+    "NUMEPISODES": "Nº de Episodios",
+    "RELEASEDATE": "Fecha de salida",
+    "RATING": "Calificacion",
+    "SERIE": "Serie a la que pertenece",
     "SUBMIT": "Registrar",
     "UPDATE": "Actualizar",
     "ERRORS": {
       "NAME_REQUIRED": "El nombre es obligatorio",
       "NAME_MIN_LENGTH": "El nombre debe tener al menos 2 caracteres",
-      "SURNAME_REQUIRED": "Los apellidos son obligatorios",
-      "SURNAME_MIN_LENGTH": "Los apellidos deben tener al menos 2 caracteres",
-      "EMAIL_REQUIRED": "El email es obligatorio",
-      "EMAIL_INVALID": "Por favor, introduce un email válido",
-      "AGE_PATTERN": "La edad debe ser un número positivo",
-      "GENDER_REQUIRED": "El género es obligatorio"
-    },
-    "GENDER_PLACEHOLDER": "Selecciona un género"
+      "NUMSEASON_REQUIRED": "Nº de la Temporada es obligatorio",
+      "NUMEPISODES_REQUIRED": "Nº de Episodios es obligatorio",
+      "RELEASEDATE_REQUIRED": "Fecha de salida es obligatorio",
+      "RATING_REQUIRED": "Calificacion es obligatorio"
+    }
   },
-  "GROUP_SELECTABLE": {
-    "SELECT_GROUP": "Seleccione un grupo",
+  "SERIE_SELECTABLE": {
+    "SELECT_SERIE": "Seleccione una serie",
     "NONE": "Ninguno",
     "SEARCH": "Buscar"
   },
   "MENU": {
     "TITLE": "Menú",
     "HOME": "Inicio",
-    "PEOPLE": "Personas",
-    "GROUPS": "Grupos",
+    "SEASONS": "Temporadas",
+    "SERIES": "Series",
     "LOGOUT": "Cerrar sesión",
     "PROFILE": "Perfil"
   },

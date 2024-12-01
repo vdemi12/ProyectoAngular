@@ -67,10 +67,12 @@
         <p *ngIf="rating?.errors?.['rating']">{{ 'SEASON.ERRORS.RATING_INVALID' | translate }}</p>
       </ion-text>
 
+      <!-- Serie a la que pertenece -->
       <ion-item>
         <ion-label position="stacked">{{ 'SEASON.SERIE' | translate }}</ion-label>
-        <app-group-selectable formControlName="serieId"></app-group-selectable>
+        <app-serie-selectable formControlName="serieId"></app-serie-selectable>
       </ion-item>
+      
       <!-- Botón de Envío -->
       <ion-button [disabled]="!formGroup.valid || !formGroup.dirty" expand="full" type="submit" >{{ 'SEASON.SUBMIT' | translate }}</ion-button>
     </form>
