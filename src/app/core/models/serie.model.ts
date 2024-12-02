@@ -6,5 +6,11 @@ export interface Serie extends Model{
     synopsis:string,
     releaseYear:number,
     rating:number,
-    picture?:string
+    picture?:{
+        url:string | undefined,
+        large:string | undefined,
+        medium:string | undefined,
+        small:string | undefined,
+        thumbnail:string | undefined
+    },
 }

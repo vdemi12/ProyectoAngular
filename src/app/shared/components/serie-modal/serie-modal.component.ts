@@ -3,34 +3,25 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { ModalController, Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Serie } from 'src/app/core/models/serie.model';
-import { Season } from 'src/app/core/models/season.model';
 
 @Component({
-  selector: 'app-season-modal',
-  templateUrl: './season-modal.component.html',
-  styleUrls: ['./season-modal.component.scss'],
+  selector: 'app-serie-modal',
+  templateUrl: './serie-modal.component.html',
+  styleUrls: ['./serie-modal.component.scss'],
 })
-export class SeasonModalComponent  implements OnInit {
+export class SerieModalComponent  implements OnInit {
   formGroup:FormGroup;
   mode:'new'|'edit' = 'new';
   isMobile: boolean = false;
-  private _series:BehaviorSubject<Serie[]> = new BehaviorSubject<Serie[]>([]);
-  public series$:Observable<Serie[]> = this._series.asObservable();
 
-  @Input() set series(series:Serie[]){
-    this._series.next(series);
-  }
-
-  @Input() set season(_season:Season){
-    if(_season && _season.id)
+  @Input() set serie(_serie:Serie){
+    if(_serie && _serie.id)
       this.mode = 'edit';
     
-    this.formGroup.controls['name'].setValue(_season.name);
-    this.formGroup.controls['numSeason'].setValue(_season.numSeason);
-    this.formGroup.controls['numEpisodes'].setValue(_season.numEpisodes);
-    this.formGroup.controls['releaseDate'].setValue(_season.releaseDate);
-    this.formGroup.controls['rating'].setValue(_season.rating);
-    this.formGroup.controls['serieId'].setValue(_season.serieId);
+    this.formGroup.controls['name'].setValue(_serie.name);
+    this.formGroup.controls['synopsis'].setValue(_serie.synopsis);
+    this.formGroup.controls['releaseYear'].setValue(_serie.releaseYear);
+    this.formGroup.controls['rating'].setValue(_serie.rating);
   }
 
   constructor(
@@ -41,11 +32,10 @@ export class SeasonModalComponent  implements OnInit {
     this.isMobile = this.platform.is('ios') || this.platform.is('android');
     this.formGroup = this.fb.group({
       name:['', [Validators.required, Validators.minLength(2)]],
-      numSeason:['', [Validators.required]],
-      numEpisodes:['', [Validators.required]],
-      releaseDate:['', [Validators.required]],
+      synopsis:['', [Validators.required]],
+      releaseYear:['', [Validators.required]],
       rating:['', [Validators.required]],
-      serieId:[null, [Validators.required]]
+      
     });
   }
   
@@ -56,16 +46,12 @@ export class SeasonModalComponent  implements OnInit {
     return this.formGroup.controls['name'];
   }
 
-  get numSeason(){
-    return this.formGroup.controls['numSeason'];
+  get synopsis(){
+    return this.formGroup.controls['synopsis'];
   }
 
-  get numEpisodes(){
-    return this.formGroup.controls['numEpisodes'];
-  }
-
-  get releaseDate(){
-    return this.formGroup.controls['releaseDate'];
+  get releaseYear(){
+    return this.formGroup.controls['releaseYear'];
   }
 
   get rating(){

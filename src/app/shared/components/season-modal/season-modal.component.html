@@ -51,13 +51,13 @@
 
       <!-- Fecha lanzamiento  -->
       <ion-item>
-        <ion-input [label]="'SEASON.RELEASEDATE' | translate" label-placement="stacked" type="releaseDate" formControlName="releaseDate"></ion-input>
+        <ion-input [label]="'SEASON.RELEASEDATE' | translate" label-placement="stacked" type="date" formControlName="releaseDate"></ion-input>
       </ion-item>
       <ion-text color="danger" *ngIf="releaseDate?.invalid && (releaseDate?.dirty || releaseDate?.touched)">
         <p *ngIf="releaseDate?.errors?.['required']">{{ 'SEASON.ERRORS.RELEASEDATE_REQUIRED' | translate }}</p>
         <p *ngIf="releaseDate?.errors?.['releaseDate']">{{ 'SEASON.ERRORS.RELEASEDATE_INVALID' | translate }}</p>
       </ion-text>
-      
+
       <!-- Calificacion -->
       <ion-item>
         <ion-input [label]="'SEASON.RATING' | translate" label-placement="stacked" type="rating" formControlName="rating"></ion-input>
