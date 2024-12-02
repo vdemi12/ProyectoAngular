@@ -33,7 +33,7 @@
   
       <!-- Sinopsis -->
       <ion-item>
-        <ion-input [label]="'SERIE.SYNOPSIS' | translate" label-placement="stacked" type="synopsis" formControlName="synopsis"></ion-input>
+        <ion-textarea [label]="'SERIE.SYNOPSIS' | translate" label-placement="stacked" type="synopsis" formControlName="synopsis"></ion-textarea>
       </ion-item>
       <ion-text color="danger" *ngIf="synopsis?.invalid && (synopsis?.dirty || synopsis?.touched)">
         <p *ngIf="synopsis?.errors?.['required']">{{ 'SERIE.ERRORS.SYNOPSIS_REQUIRED' | translate }}</p>

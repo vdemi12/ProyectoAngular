@@ -5,7 +5,7 @@ import { PictureSelectableComponent } from './components/picture-selectable/pict
 import { SeasonModalComponent } from './components/season-modal/season-modal.component';
 import { SerieModalComponent } from './components/serie-modal/serie-modal.component';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
 

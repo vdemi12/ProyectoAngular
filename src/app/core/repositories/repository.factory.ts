@@ -16,6 +16,7 @@ import { BaseAuthenticationService } from '../services/impl/base-authentication.
 import { IAuthMapping } from '../services/interfaces/auth-mapping.interface';
 import { StrapiAuthenticationService } from '../services/impl/strapi-authentication.service';
 import { SeasonsLocalStorageMapping } from './impl/seasons-mapping-local-storage.service';
+import { SeriesLocalStorageMapping } from './impl/series-mapping-local-storage.service';
 import { SeasonsMappingJsonServer } from './impl/seasons-mapping-json-server.service';
 import { SeasonsMappingStrapi } from './impl/seasons-mapping-strapi.service';
 import { PeopleLocalStorageMapping } from './impl/people-mapping-local-storage.service';
@@ -63,7 +64,7 @@ export function createBaseMappingFactory<T extends Model>(
         case 'local-storage':
           return modelType === 'season' 
             ? new SeasonsLocalStorageMapping()
-            : null;
+            : new SeriesLocalStorageMapping();
         case 'json-server':
           return modelType === 'season'
             ? new SeasonsMappingJsonServer()
