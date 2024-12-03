@@ -95,6 +95,10 @@
     "NONE": "Ninguno",
     "SEARCH": "Buscar"
   },
+  "PERSON": {
+    "GENDER": "Genero",
+    "GENDER_PLACEHOLDER": "Seleccione un genero"
+  },
   "MENU": {
     "TITLE": "Menú",
     "HOME": "Inicio",

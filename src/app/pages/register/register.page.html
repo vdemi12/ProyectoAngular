@@ -32,6 +32,11 @@
         <ion-input labelPlacement="floating" label="Email" type="email" formControlName="email" autocomplete="off" required></ion-input>
       </ion-item>
       <ion-item>
+        <ion-select [label]="'PERSON.GENDER' | translate" label-placement="stacked" formControlName="gender" [placeholder]="'PERSON.GENDER_PLACEHOLDER' | translate">
+          <ion-select-option *ngFor="let gen of genders" [value]="gen">{{ gen }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
         <ion-input labelPlacement="floating" label="Contraseña" type="password" formControlName="password" required></ion-input>
       </ion-item>
       <ion-item>
@@ -48,6 +53,10 @@
       <ion-text class="input-error" color="danger" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
         <p *ngIf="email?.errors?.['required']">*Debe introducir un email</p>
         <p *ngIf="email?.errors?.['email']">*Debe introducir un email correcto</p>
+      </ion-text>
+      <ion-text class="input-error" color="danger" *ngIf="gender?.invalid && (gender?.dirty || gender?.touched)">
+        <p *ngIf="gender?.errors?.['required']">*Debe introducir un genero</p>
+        <p *ngIf="gender?.errors?.['gender']">*Debe introducir un genero correcto</p>
       </ion-text>
       <ion-text class="input-error" color="danger" *ngIf="password?.invalid && (password?.dirty || password?.touched)">
         <p *ngIf="password?.errors?.['required']">*Debe introducir una contraseña</p>

@@ -33,7 +33,6 @@ export class ProfilePage implements OnInit {
       surname: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       gender: ['', [Validators.required]],
-      groupId:[null, []],
       picture: ['']
     });
   }

@@ -12,7 +12,8 @@ import { passwordsMatchValidator, passwordValidator } from 'src/app/core/utils/v
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage {
-
+  
+  genders:string[] = ['Masculino', 'Femenino', 'Otros'];
   registerForm: FormGroup;
 
   constructor(
@@ -26,6 +27,7 @@ export class RegisterPage {
       name: ['', [Validators.required, Validators.minLength(2)]],
       surname: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
+      gender: ['', [Validators.required]],
       password: ['', [Validators.required, passwordValidator]],
       confirmPassword: ['', [Validators.required]]
     },
@@ -38,7 +40,7 @@ export class RegisterPage {
         next: (resp:User) => {
           const userData = {
             ...this.registerForm.value,
-            userId: resp.id.toString()
+            userId: resp.id.toString(),
           };
           
           this.peopleSvc.add(userData).subscribe({
@@ -74,6 +76,10 @@ export class RegisterPage {
 
   get email(){
     return this.registerForm.controls['email'];
+  }
+
+  get gender(){
+    return this.registerForm.controls['gender'];
   }
 
   get password(){
