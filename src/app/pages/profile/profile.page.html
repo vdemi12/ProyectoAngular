@@ -56,16 +56,6 @@
               <p *ngIf="email?.errors?.['required']">{{ 'PERSON.ERRORS.EMAIL_REQUIRED' | translate }}</p>
               <p *ngIf="email?.errors?.['email']">{{ 'PERSON.ERRORS.EMAIL_INVALID' | translate }}</p>
             </ion-text>
-            <!-- Género -->
-            <ion-item>
-              <ion-select [label]="'PERSON.GENDER' | translate" label-placement="stacked" formControlName="gender" [placeholder]="'PERSON.GENDER_PLACEHOLDER' | translate">
-                <ion-select-option *ngFor="let gen of genders" [value]="gen">{{ gen }}</ion-select-option>
-              </ion-select>
-            </ion-item>
-            
-            <ion-text color="danger" *ngIf="gender?.invalid && (gender?.dirty || gender?.touched)">
-              <p *ngIf="gender?.errors?.['required']">El género es obligatorio.</p>
-            </ion-text>
           </ion-list>
         </ion-col>
       </ion-row>

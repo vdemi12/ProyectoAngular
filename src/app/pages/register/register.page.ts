@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/core/models/auth.model';
 import { BaseAuthenticationService } from 'src/app/core/services/impl/base-authentication.service';
-import { PeopleService } from 'src/app/core/services/impl/people.service';
 import { passwordsMatchValidator, passwordValidator } from 'src/app/core/utils/validators';
 
 @Component({
@@ -13,21 +12,18 @@ import { passwordsMatchValidator, passwordValidator } from 'src/app/core/utils/v
 })
 export class RegisterPage {
   
-  genders:string[] = ['Masculino', 'Femenino', 'Otros'];
   registerForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route:ActivatedRoute,
-    private authSvc:BaseAuthenticationService,
-    private peopleSvc:PeopleService
+    private authSvc:BaseAuthenticationService
   ) {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       surname: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      gender: ['', [Validators.required]],
       password: ['', [Validators.required, passwordValidator]],
       confirmPassword: ['', [Validators.required]]
     },
@@ -42,14 +38,7 @@ export class RegisterPage {
             ...this.registerForm.value,
             userId: resp.id.toString(),
           };
-          
-          this.peopleSvc.add(userData).subscribe({
-            next: resp => {
-              const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
-              this.router.navigateByUrl(returnUrl);
-            },
-            error: err => {}
-          });
+          this.router.navigate(['/home'])
         },
         error: err => {
           console.log(err);
@@ -76,10 +65,6 @@ export class RegisterPage {
 
   get email(){
     return this.registerForm.controls['email'];
-  }
-
-  get gender(){
-    return this.registerForm.controls['gender'];
   }
 
   get password(){

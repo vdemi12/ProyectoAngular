@@ -15,7 +15,6 @@ import { PeopleService } from 'src/app/core/services/impl/people.service';
 })
 export class ProfilePage implements OnInit {
 
-  genders:string[] = ['Masculino', 'Femenino', 'Otros'];
   formGroup: FormGroup;
   person?: Person | null;
 
@@ -32,7 +31,6 @@ export class ProfilePage implements OnInit {
       name: ['', [Validators.required]],
       surname: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      gender: ['', [Validators.required]],
       picture: ['']
     });
   }
@@ -128,9 +126,5 @@ export class ProfilePage implements OnInit {
 
   get email(){
     return this.formGroup.controls['email'];
-  }
-
-  get gender(){
-    return this.formGroup.controls['gender'];
   }
 }
