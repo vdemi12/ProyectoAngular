@@ -12,32 +12,18 @@
     <ng-container *ngFor="let serie of _series | async; let i=index">
       <!-- Vista para web -->
       <ion-item *ngIf="isWeb">
-        <div class="card flex justify-content-center">
-          <p-card header={{serie.name}} subheader={{serie.rating}} [style]="{ width: '360px' }">
-          <ng-template pTemplate="header">
-            <img [src]="serie.picture?.url || 'https://ionicframework.com/docs/img/demos/avatar.svg'" />
-          </ng-template>
-          <p-accordion [activeIndex]="0"> 
-            <p-accordionTab header="Header I">
-                <p>
-                    aaa
-                </p>
-            </p-accordionTab>
-            <p-accordionTab header="Header II">
-                <p>
-                    aaa
-                </p>
-            </p-accordionTab>
-            <p-accordionTab header="Header III">
-                <p>
-                    aaa
-                </p>
-            </p-accordionTab>
-        </p-accordion>
-          </p-card>
-        </div>
+        <mat-card>
+          <img mat-card-image src='https://ionicframework.com/docs/img/demos/avatar.svg' alt="Card image">
+          <mat-card-header>
+            <mat-card-title>Card Title</mat-card-title>
+            <mat-card-subtitle>Card Subtitle</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            
+          </mat-card-content>
+        </mat-card>
+        
       </ion-item>
-      
       
 
       <!-- Vista para móvil -->

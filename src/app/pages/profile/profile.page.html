@@ -16,7 +16,7 @@
       </ion-text>
     </ion-toolbar>
   </ion-header>
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <ion-grid>
       <ion-row>
         <ion-col size="12" size-md="4" class="ion-text-center">
@@ -48,6 +48,15 @@
               <p *ngIf="surname?.errors?.['minlength']">{{ 'PERSON.ERRORS.SURNAME_MIN_LENGTH' | translate }}</p>
             </ion-text>
 
+            <!-- Usuario -->
+            <ion-item>
+              <ion-input [label]="'PERSON.USERNAME' | translate" label-placement="stacked" type="text" formControlName="username"></ion-input>
+            </ion-item>
+            <ion-text color="danger" *ngIf="username?.invalid && (username?.dirty || username?.touched)">
+              <p *ngIf="username?.errors?.['required']">{{ 'PERSON.ERRORS.USERNAME_REQUIRED' | translate }}</p>
+              <p *ngIf="username.errors?.['minlength']">{{ 'PERSON.ERRORS.USERNAME_MIN_LENGTH' | translate }}</p>
+            </ion-text>
+
             <!-- Email -->
             <ion-item>
               <ion-input [label]="'PERSON.EMAIL' | translate" label-placement="stacked" type="email" formControlName="email"></ion-input>
@@ -62,7 +71,7 @@
     </ion-grid>
     
     <div class="ion-padding">
-      <ion-button [disabled]="!formGroup.valid || !formGroup.dirty" expand="full" type="submit">
+      <ion-button [disabled]="!registerForm.valid || !registerForm.dirty" expand="full" type="submit">
         {{ 'PROFILE.UPDATE' | translate }}
       </ion-button>
     </div>

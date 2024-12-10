@@ -4,9 +4,10 @@ import { BaseAuthenticationService } from './base-authentication.service';
 import { AUTH_MAPPING_TOKEN, AUTH_ME_API_URL_TOKEN, AUTH_SIGN_IN_API_URL_TOKEN, AUTH_SIGN_UP_API_URL_TOKEN } from '../../repositories/repository.tokens';
 import { HttpClient } from '@angular/common/http';
 import { IAuthMapping } from '../interfaces/auth-mapping.interface';
-import { StrapiMeResponse, StrapiSignInResponse, StrapiSignUpResponse } from './strapi-auth-mapping.service';
+import { StrapiMeResponse, StrapiSignInResponse, StrapiSignUpResponse, StrapiUser } from './strapi-auth-mapping.service';
 import { IStrapiAuthentication } from '../interfaces/strapi-authentication.interface';
-import { User } from '../../models/auth.model';
+import { User, SignUpPayload } from '../../models/auth.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -63,16 +64,23 @@ export class StrapiAuthenticationService extends BaseAuthenticationService imple
     }));
   }
 
-  signUp(signUpPayload: any): Observable<User> {
+  signUp(signUpPayload: SignUpPayload): Observable<User> {    
     return this.httpClient.post<StrapiSignUpResponse>(
-      `${this.signUpUrl}`, 
-      this.authMapping.signUpPayload(signUpPayload)).pipe(map((resp:StrapiSignUpResponse)=>{
+        `${this.signUpUrl}`, 
+        {
+            username: signUpPayload.username,
+            email: signUpPayload.email,
+            password: signUpPayload.password,
+            name: signUpPayload.name,
+            surname: signUpPayload.surname
+        }
+    ).pipe(map((resp:StrapiSignUpResponse)=>{
         localStorage.setItem("seasons-jwt-token",resp.jwt);
         this.jwt_token = resp.jwt;
         this._authenticated.next(true);
         return this.authMapping.signUp(resp);
-      }));
-  }
+    }));
+}
 
   signOut(): Observable<any> {
     return of(true).pipe(tap(_=>{
@@ -80,6 +88,16 @@ export class StrapiAuthenticationService extends BaseAuthenticationService imple
       this._authenticated.next(false);
       this._user.next(undefined);
     }));
+  }
+
+  override updateUser(userId: string, userData: Partial<User>): Observable<User> {
+    return this.httpClient.put<StrapiUser>(
+      `${this.meUrl}/${userId}`,
+      userData,
+      { headers: { Authorization: `Bearer ${this.jwt_token}` } }
+    ).pipe(
+      map((response: StrapiUser) => this.authMapping.me(response))
+    );
   }
 
   me():Observable<any>{

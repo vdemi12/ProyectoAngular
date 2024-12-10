@@ -3,10 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
-import { Person } from 'src/app/core/models/person.model';
+import { User } from 'src/app/core/models/auth.model';
 import { BaseAuthenticationService } from 'src/app/core/services/impl/base-authentication.service';
 import { BaseMediaService } from 'src/app/core/services/impl/base-media.service';
-import { PeopleService } from 'src/app/core/services/impl/people.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,20 +13,19 @@ import { PeopleService } from 'src/app/core/services/impl/people.service';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-
-  formGroup: FormGroup;
-  person?: Person | null;
+  registerForm: FormGroup;
+  user?: User | null;
 
   constructor(
     private formBuilder: FormBuilder,
-    private peopleService: PeopleService,
-    private authService:BaseAuthenticationService,
-    private mediaService:BaseMediaService,
+    private authService: BaseAuthenticationService,
+    private mediaService: BaseMediaService,
     private loadingController: LoadingController,
     private toastController: ToastController,
     private translateService: TranslateService
   ) {
-    this.formGroup = this.formBuilder.group({
+    this.registerForm = this.formBuilder.group({
+      username: ['', [Validators.required]],
       name: ['', [Validators.required]],
       surname: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -40,21 +38,15 @@ export class ProfilePage implements OnInit {
     await loading.present();
 
     try {
-      const user = await this.authService.getCurrentUser();
-      if(user){
-          this.person = await lastValueFrom(this.peopleService.getByUserId(user.id));
-          console.log(this.person);
-          if (this.person) {
-            const updatedPerson: any = {
-              ...this.person,
-              email:user.email,
-              userId:user.id,
-              picture: typeof this.person.picture === 'object' ? 
-                           this.person.picture.url : 
-                           undefined
-            };
-            this.formGroup.patchValue(updatedPerson);
-          }
+      this.user = await this.authService.getCurrentUser();
+      if (this.user) {
+        this.registerForm.patchValue({
+          username: this.user.username,
+          name: this.user.name,
+          surname: this.user.surname,
+          email: this.user.email,
+          picture: this.user.picture
+        });
       }
     } catch (error) {
       console.error(error);
@@ -70,27 +62,29 @@ export class ProfilePage implements OnInit {
   }
 
   async onSubmit() {
-    if (this.formGroup.valid && this.person) {
+    if (this.registerForm.valid && this.user) {
       const loading = await this.loadingController.create();
       await loading.present();
 
       try {
-        const changedValues = {} as Record<keyof Person, any>;
-        Object.keys(this.formGroup.controls).forEach(key => {
-          if (this.formGroup.get(key)?.dirty) {
-            changedValues[key as keyof Person] = this.formGroup.get(key)?.value;
+        const updatedUser: Partial<User> = {};
+        
+        // Solo actualizar campos modificados
+        Object.keys(this.registerForm.controls).forEach(key => {
+          if (this.registerForm.get(key)?.dirty) {
+            updatedUser[key as keyof User] = this.registerForm.get(key)?.value;
           }
         });
 
-        if(changedValues.picture){
-          // Convertir base64 a Blob
-          const base64Response = await fetch(changedValues.picture);
+        // Manejo de imagen de perfil
+        if (updatedUser.picture) {
+          const base64Response = await fetch(updatedUser.picture);
           const blob = await base64Response.blob();
           const uploadedBlob = await lastValueFrom(this.mediaService.upload(blob));
-          changedValues.picture = uploadedBlob[0];
-        } 
-        
-        await lastValueFrom(this.peopleService.update(this.person.id, changedValues));
+        }
+
+        // Llamar al método de actualización de usuario en tu servicio de autenticación
+        await lastValueFrom(this.authService.updateUser(this.user.id, updatedUser));
         
         const toast = await this.toastController.create({
           message: await this.translateService.get('COMMON.SUCCESS.SAVE').toPromise(),
@@ -101,7 +95,7 @@ export class ProfilePage implements OnInit {
       } catch (error) {
         console.error(error);
         const toast = await this.toastController.create({
-          message: await this.translateService.get('COMMON.ERROR.SAVE').toPromise(),
+          message: await lastValueFrom(this.translateService.get('COMMON.ERROR.SAVE')),
           duration: 3000,
           position: 'bottom'
         });
@@ -112,19 +106,19 @@ export class ProfilePage implements OnInit {
     }
   }
 
+  get username() {
+    return this.registerForm.controls['username'];
+  }
+
   get name(){
-    return this.formGroup.controls['name'];
+    return this.registerForm.controls['name'];
   }
 
   get surname(){
-    return this.formGroup.controls['surname'];
-  }
-
-  get age(){
-    return this.formGroup.controls['age'];
+    return this.registerForm.controls['surname'];
   }
 
   get email(){
-    return this.formGroup.controls['email'];
+    return this.registerForm.controls['email'];
   }
 }

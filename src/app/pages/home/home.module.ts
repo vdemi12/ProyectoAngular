@@ -4,18 +4,17 @@ import { IonicModule } from '@ionic/angular';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';
-import { AccordionModule } from 'primeng/accordion';
+import {MatCardModule} from '@angular/material/card';
+import {CdkAccordionModule} from '@angular/cdk/accordion';
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
     HomePageRoutingModule,
-    CardModule, ButtonModule, AccordionModule,
+    MatCardModule, CdkAccordionModule,
     TranslateModule.forChild()
   ],
-  declarations: [HomePage]
+  declarations: [HomePage],
 })
 export class HomePageModule { }

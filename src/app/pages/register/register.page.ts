@@ -21,6 +21,7 @@ export class RegisterPage {
     private authSvc:BaseAuthenticationService
   ) {
     this.registerForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(2)]],
       name: ['', [Validators.required, Validators.minLength(2)]],
       surname: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
@@ -32,20 +33,22 @@ export class RegisterPage {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      this.authSvc.signUp(this.registerForm.value).subscribe({
-        next: (resp:User) => {
-          const userData = {
-            ...this.registerForm.value,
-            userId: resp.id.toString(),
-          };
-          this.router.navigate(['/home'])
-        },
-        error: err => {
-          console.log(err);
-        }
-      });
-    } else {
-      console.log('Formulario no válido');
+        const signUpData = {
+            username: this.registerForm.value.username,
+            email: this.registerForm.value.email,
+            password: this.registerForm.value.password,
+            name: this.registerForm.value.name,
+            surname: this.registerForm.value.surname,
+        };
+
+        this.authSvc.signUp(signUpData).subscribe({
+            next: (resp: User) => {
+                this.router.navigate(['/home'])
+            },
+            error: err => {
+                console.log(err);
+            }
+        });
     }
   }
 
@@ -53,6 +56,10 @@ export class RegisterPage {
     this.registerForm.reset();
     const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
     this.router.navigate(['/login'], {queryParams:{ returnUrl:returnUrl}, replaceUrl:true});
+  }
+
+  get username() {
+    return this.registerForm.controls['username'];
   }
 
   get name(){

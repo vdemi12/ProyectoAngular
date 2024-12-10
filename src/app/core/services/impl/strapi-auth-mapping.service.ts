@@ -8,7 +8,9 @@ import { SignInPayload, SignUpPayload, User } from "../../models/auth.model";
 
 export interface StrapiMeResponse {
     id: number
-    username: string
+    username: string,
+    name: string
+    surname: string
     email: string
     provider: string
     confirmed: boolean
@@ -30,6 +32,8 @@ export interface StrapiSignUpResponse {
   export interface StrapiUser {
     id: number
     username: string
+    name: string
+    surname: string
     email: string
     provider: string
     confirmed: boolean
@@ -45,9 +49,12 @@ interface StrapiSignIn{
 }
 
 interface StrapiSignUp{
-    email:string,
-    password:string,
-    username:string
+    username: string,
+    name: string,
+    surname: string,
+    email: string,
+    password: string,
+    
 }
 export interface SerieRaw {
     id: string
@@ -63,24 +70,30 @@ export interface SerieRaw {
             password:payload.password
         };
     }
-    signUpPayload(payload: SignUpPayload):StrapiSignUp {
+    signUpPayload(payload: SignUpPayload): StrapiSignUp {
         return {
-            email:payload.email,
-            password:payload.password,
-            username:payload.name + " "+ payload.surname
+            username: payload.username,
+            email: payload.email,
+            password: payload.password,
+            name: payload.name,
+            surname: payload.surname
         };
     }
     signIn(response: StrapiSignInResponse): User {
         return {
             id:response.user.id.toString(),
-            username:response.user.username,
+            username: response.user.username,
+            name:response.user.name,
+            surname:response.user.surname,
             email:response.user.email
         };
     }
     signUp(response: StrapiSignUpResponse): User {
         return {
             id:response.user.id.toString(),
-            username:response.user.username,
+            username: response.user.username,
+            name:response.user.name,
+            surname:response.user.surname,
             email:response.user.email
         };
     }
@@ -88,7 +101,9 @@ export interface SerieRaw {
     me(response: StrapiMeResponse): User {
         return {
             id:response.id.toString(),
-            username:response.username,
+            username: response.username,
+            name:response.name,
+            surname:response.surname,
             email:response.email
         };
     }

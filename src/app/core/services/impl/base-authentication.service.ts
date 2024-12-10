@@ -16,14 +16,16 @@ export abstract class BaseAuthenticationService implements IAuthentication{
     public user$:Observable<User | undefined> = this._user.asObservable();
     protected _ready:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     public ready$:Observable<boolean> = this._ready.asObservable();
+    abstract updateUser(userId: string, userData: Partial<User>): Observable<User>;
     constructor(
         protected authMapping:IAuthMapping
     ){
 
     }
-    abstract getCurrentUser(): Promise<any>;
+    abstract getCurrentUser(): Promise<User>;    
     abstract signIn(authPayload: any): Observable<any>;
     abstract signUp(registerPayload: any): Observable<any>;
     abstract signOut(): Observable<any>;
     abstract me():Observable<any>;
+    
 }

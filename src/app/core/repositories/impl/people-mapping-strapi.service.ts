@@ -18,7 +18,8 @@ interface UserData{
 }
 
 interface UserAttributes {
-    username: string
+    name: string
+    surname: string
     email: string
     provider: string
     confirmed: boolean
